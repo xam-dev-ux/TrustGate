@@ -16,6 +16,8 @@ export const config = {
   // Contract addresses
   contracts: {
     trustgate: process.env.CONTRACT_ADDRESS || "",
+    stakingPool: process.env.STAKING_POOL_ADDRESS || "",
+    trustscoreNft: process.env.TRUSTSCORE_NFT_ADDRESS || "",
     erc8004Registry: process.env.ERC8004_REGISTRY_ADDRESS || "",
     erc8183Factory: process.env.ERC8183_FACTORY_ADDRESS || "",
   },
