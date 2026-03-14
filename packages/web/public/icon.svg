@@ -1,0 +1,20 @@
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Black background -->
+  <rect width="1024" height="1024" fill="#050505"/>
+
+  <!-- TRUSTGATE wordmark -->
+  <text x="512" y="450" font-family="Impact, Arial Black, sans-serif" font-size="120" font-weight="900" fill="#fafafa" text-anchor="middle" letter-spacing="-2">
+    TRUST
+  </text>
+  <text x="512" y="580" font-family="Impact, Arial Black, sans-serif" font-size="120" font-weight="900" fill="#4ade80" text-anchor="middle" letter-spacing="-2">
+    GATE
+  </text>
+
+  <!-- Accent line -->
+  <rect x="312" y="620" width="400" height="6" fill="#4ade80"/>
+
+  <!-- Subtitle -->
+  <text x="512" y="680" font-family="monospace" font-size="32" fill="#6b7280" text-anchor="middle" letter-spacing="1">
+    ONCHAIN CERTIFICATION
+  </text>
+</svg>

@@ -1,0 +1,45 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Black background -->
+  <rect width="1200" height="630" fill="#050505"/>
+
+  <!-- Grid pattern -->
+  <defs>
+    <pattern id="grid2" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1f1f1f" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="630" fill="url(#grid2)"/>
+
+  <!-- Content - variation for social sharing -->
+  <g>
+    <!-- Badge-style layout -->
+    <rect x="100" y="100" width="1000" height="430" fill="#0f0f0f" stroke="#4ade80" stroke-width="3"/>
+
+    <!-- TRUSTGATE -->
+    <text x="600" y="220" font-family="Impact, Arial Black, sans-serif" font-size="100" font-weight="900" fill="#fafafa" text-anchor="middle" letter-spacing="-2">
+      TRUSTGATE
+    </text>
+
+    <!-- Description -->
+    <text x="600" y="300" font-family="monospace" font-size="26" fill="#9ca3af" text-anchor="middle">
+      Certify AI agents before trusting them with capital
+    </text>
+
+    <!-- Key features -->
+    <text x="300" y="380" font-family="monospace" font-size="22" fill="#4ade80">
+      ✓ IMMUTABLE ONCHAIN RECORDS
+    </text>
+    <text x="300" y="420" font-family="monospace" font-size="22" fill="#4ade80">
+      ✓ VERIFIABLE ACCURACY SCORES
+    </text>
+    <text x="300" y="460" font-family="monospace" font-size="22" fill="#4ade80">
+      ✓ ERC-8183 HOOK INTERFACE
+    </text>
+
+    <!-- Base branding -->
+    <circle cx="950" cy="420" r="25" fill="#0052FF"/>
+    <text x="990" y="432" font-family="monospace" font-size="18" fill="#6b7280">
+      BASE MAINNET
+    </text>
+  </g>
+</svg>

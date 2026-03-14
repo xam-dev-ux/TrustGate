@@ -1,0 +1,24 @@
+{
+  "name": "trustgate-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "TRUSTGATE - Onchain certification infrastructure for AI agents on Base mainnet",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "npm run build --workspaces --if-present",
+    "test": "npm run test --workspaces --if-present",
+    "dev:agent": "npm run dev --workspace=packages/agent",
+    "dev:web": "npm run dev --workspace=packages/web",
+    "dev": "concurrently \"npm run dev:agent\" \"npm run dev:web\"",
+    "clean": "npm run clean --workspaces --if-present && rm -rf node_modules"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "engines": {
+    "node": ">=22.0.0",
+    "npm": ">=10.0.0"
+  }
+}

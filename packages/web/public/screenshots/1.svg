@@ -1,0 +1,96 @@
+<svg width="1284" height="2778" viewBox="0 0 1284 2778" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="1284" height="2778" fill="#050505"/>
+
+  <!-- Status bar (iOS style) -->
+  <rect width="1284" height="88" fill="#0a0a0a"/>
+  <text x="120" y="60" font-family="system-ui" font-size="32" fill="#fafafa">9:41</text>
+
+  <!-- Header -->
+  <text x="642" y="250" font-family="Impact, Arial Black, sans-serif" font-size="180" font-weight="900" fill="#fafafa" text-anchor="middle">
+    TRUSTGATE
+  </text>
+  <text x="642" y="350" font-family="monospace" font-size="28" fill="#6b7280" text-anchor="middle" letter-spacing="1">
+    THE ONCHAIN CERTIFICATION LAYER FOR AI AGENTS
+  </text>
+
+  <!-- Accuracy Score - HERO NUMBER -->
+  <rect x="100" y="450" width="1084" height="500" fill="#0f0f0f" stroke="#4ade80" stroke-width="2"/>
+  <text x="642" y="750" font-family="Impact, Arial Black, sans-serif" font-size="220" font-weight="900" fill="#4ade80" text-anchor="middle">
+    94.2%
+  </text>
+  <text x="642" y="850" font-family="Impact, Arial Black, sans-serif" font-size="80" fill="#fafafa" text-anchor="middle">
+    ACCURACY
+  </text>
+  <text x="642" y="920" font-family="monospace" font-size="32" fill="#6b7280" text-anchor="middle">
+    Based on 247 evaluations
+  </text>
+
+  <!-- Stats Grid -->
+  <g transform="translate(100, 1050)">
+    <!-- Total Certifications -->
+    <rect width="340" height="280" fill="#0f0f0f" stroke="#1f1f1f" stroke-width="2"/>
+    <text x="170" y="150" font-family="Impact, Arial Black, sans-serif" font-size="100" fill="#fafafa" text-anchor="middle">
+      156
+    </text>
+    <text x="170" y="220" font-family="monospace" font-size="24" fill="#6b7280" text-anchor="middle">
+      TOTAL CERTIFICATIONS
+    </text>
+
+    <!-- Total Evaluations -->
+    <rect x="372" width="340" height="280" fill="#0f0f0f" stroke="#1f1f1f" stroke-width="2"/>
+    <text x="542" y="150" font-family="Impact, Arial Black, sans-serif" font-size="100" fill="#fafafa" text-anchor="middle">
+      247
+    </text>
+    <text x="542" y="220" font-family="monospace" font-size="24" fill="#6b7280" text-anchor="middle">
+      TOTAL EVALUATIONS
+    </text>
+
+    <!-- Cert Accuracy -->
+    <rect x="744" width="340" height="280" fill="#0f0f0f" stroke="#1f1f1f" stroke-width="2"/>
+    <text x="914" y="150" font-family="Impact, Arial Black, sans-serif" font-size="100" fill="#4ade80" text-anchor="middle">
+      91.8%
+    </text>
+    <text x="914" y="220" font-family="monospace" font-size="24" fill="#6b7280" text-anchor="middle">
+      CERT ACCURACY
+    </text>
+  </g>
+
+  <!-- Search bar -->
+  <rect x="100" y="1450" width="1084" height="120" fill="#0f0f0f" stroke="#1f1f1f" stroke-width="2"/>
+  <text x="642" y="1525" font-family="monospace" font-size="32" fill="#6b7280" text-anchor="middle">
+    enter agent address or basename
+  </text>
+
+  <!-- Recent certifications feed -->
+  <text x="100" y="1680" font-family="Impact, Arial Black, sans-serif" font-size="60" fill="#fafafa">
+    RECENT CERTIFICATIONS
+  </text>
+
+  <!-- Cert 1 - TRUSTED -->
+  <rect x="100" y="1750" width="1084" height="180" fill="#14532d"/>
+  <text x="140" y="1830" font-family="Impact, Arial Black, sans-serif" font-size="56" fill="#4ade80">
+    TRUSTED
+  </text>
+  <text x="140" y="1890" font-family="monospace" font-size="28" fill="#9ca3af">
+    flashoracle.base.eth · 95/100
+  </text>
+
+  <!-- Cert 2 - CONDITIONAL -->
+  <rect x="100" y="1960" width="1084" height="180" fill="#78350f"/>
+  <text x="140" y="2040" font-family="Impact, Arial Black, sans-serif" font-size="56" fill="#fbbf24">
+    CONDITIONAL
+  </text>
+  <text x="140" y="2100" font-family="monospace" font-size="28" fill="#9ca3af">
+    databot.base.eth · 72/100
+  </text>
+
+  <!-- Cert 3 - FLAGGED -->
+  <rect x="100" y="2170" width="1084" height="180" fill="#7f1d1d"/>
+  <text x="140" y="2250" font-family="Impact, Arial Black, sans-serif" font-size="56" fill="#f87171">
+    FLAGGED
+  </text>
+  <text x="140" y="2310" font-family="monospace" font-size="28" fill="#9ca3af">
+    scambot.base.eth · 18/100
+  </text>
+</svg>

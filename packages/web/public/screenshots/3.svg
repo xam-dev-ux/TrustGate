@@ -1,0 +1,84 @@
+<svg width="1284" height="2778" viewBox="0 0 1284 2778" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="1284" height="2778" fill="#050505"/>
+
+  <!-- Status bar -->
+  <rect width="1284" height="88" fill="#0a0a0a"/>
+  <text x="120" y="60" font-family="system-ui" font-size="32" fill="#fafafa">9:41</text>
+
+  <!-- Header -->
+  <text x="100" y="250" font-family="Impact, Arial Black, sans-serif" font-size="120" fill="#fafafa">
+    ACCURACY
+  </text>
+  <text x="100" y="320" font-family="Impact, Arial Black, sans-serif" font-size="120" fill="#fafafa">
+    AUDIT
+  </text>
+
+  <!-- Subtitle -->
+  <text x="100" y="420" font-family="monospace" font-size="32" fill="#6b7280">
+    TRUSTGATE's verifiable track record
+  </text>
+
+  <!-- Evaluation Accuracy Card -->
+  <rect x="100" y="520" width="1084" height="500" fill="#0f0f0f" stroke="#4ade80" stroke-width="3"/>
+  <text x="140" y="620" font-family="Impact, Arial Black, sans-serif" font-size="60" fill="#fafafa">
+    EVALUATION ACCURACY
+  </text>
+  <text x="642" y="820" font-family="Impact, Arial Black, sans-serif" font-size="200" fill="#4ade80" text-anchor="middle">
+    94.2%
+  </text>
+  <text x="642" y="930" font-family="monospace" font-size="32" fill="#6b7280" text-anchor="middle">
+    Based on 247 total evaluations
+  </text>
+
+  <!-- Certification Accuracy Card -->
+  <rect x="100" y="1100" width="1084" height="500" fill="#0f0f0f" stroke="#4ade80" stroke-width="3"/>
+  <text x="140" y="1200" font-family="Impact, Arial Black, sans-serif" font-size="60" fill="#fafafa">
+    CERTIFICATION ACCURACY
+  </text>
+  <text x="642" y="1400" font-family="Impact, Arial Black, sans-serif" font-size="200" fill="#4ade80" text-anchor="middle">
+    91.8%
+  </text>
+  <text x="642" y="1510" font-family="monospace" font-size="32" fill="#6b7280" text-anchor="middle">
+    Based on 156 certifications with tracked outcomes
+  </text>
+
+  <!-- Methodology Section -->
+  <text x="100" y="1740" font-family="Impact, Arial Black, sans-serif" font-size="70" fill="#fafafa">
+    METHODOLOGY
+  </text>
+
+  <!-- Methodology text -->
+  <rect x="100" y="1800" width="1084" height="600" fill="#0f0f0f" stroke="#1f1f1f" stroke-width="2"/>
+
+  <text x="140" y="1900" font-family="monospace" font-size="32" fill="#fafafa" font-weight="bold">
+    Evaluation Accuracy:
+  </text>
+  <text x="140" y="1970" font-family="monospace" font-size="28" fill="#9ca3af">
+    Percentage of evaluations verified as correct
+  </text>
+  <text x="140" y="2020" font-family="monospace" font-size="28" fill="#9ca3af">
+    based on job outcomes and dispute resolutions.
+  </text>
+
+  <text x="140" y="2130" font-family="monospace" font-size="32" fill="#fafafa" font-weight="bold">
+    Certification Accuracy:
+  </text>
+  <text x="140" y="2200" font-family="monospace" font-size="28" fill="#9ca3af">
+    Percentage of certifications where predicted
+  </text>
+  <text x="140" y="2250" font-family="monospace" font-size="28" fill="#9ca3af">
+    outcome matched agent's actual performance.
+  </text>
+
+  <!-- Onchain verification note -->
+  <text x="140" y="2350" font-family="monospace" font-size="28" fill="#4ade80">
+    All data verifiable onchain via TrustGateRegistry
+  </text>
+
+  <!-- Bottom base branding -->
+  <circle cx="642" cy="2600" r="40" fill="#0052FF"/>
+  <text x="642" y="2700" font-family="monospace" font-size="32" fill="#6b7280" text-anchor="middle">
+    BASE MAINNET
+  </text>
+</svg>

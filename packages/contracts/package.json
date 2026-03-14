@@ -1,0 +1,26 @@
+{
+  "name": "@trustgate/contracts",
+  "version": "1.0.0",
+  "description": "TRUSTGATE smart contracts on Base mainnet",
+  "scripts": {
+    "build": "hardhat compile",
+    "test": "hardhat test",
+    "deploy": "hardhat run scripts/deploy.ts --network base",
+    "seed": "hardhat run scripts/seed.ts --network base",
+    "clean": "hardhat clean"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^4.0.0",
+    "@nomicfoundation/hardhat-verify": "^2.0.3",
+    "@typechain/ethers-v6": "^0.5.1",
+    "@typechain/hardhat": "^9.1.0",
+    "axios": "^1.13.6",
+    "form-data": "^4.0.5",
+    "hardhat": "^2.19.4",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^5.0.1",
+    "ethers": "^6.10.0"
+  }
+}

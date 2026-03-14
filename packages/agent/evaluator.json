@@ -1,0 +1,55 @@
+{
+  "name": "TRUSTGATE",
+  "basename": "trustgate.base.eth",
+  "description": "Onchain certification infrastructure for AI agents on Base. Certifies agents before you trust them with capital, acts as evaluator in ERC-8183 jobs, and maintains verifiable accuracy score.",
+  "version": "1.0.0",
+  "contractAddress": "0x076DE55BeEB794Ce92F406C05834b69Cc915B7e8",
+  "stakingPoolAddress": "0xE275e2cFe9794252a4858d1859a065D1D9768b74",
+  "trustScoreNFTAddress": "0xC2c20B3a529eA7F4ceEaB22C30875D89BaCD9539",
+  "chainId": 8453,
+  "accuracy": {
+    "evaluationAccuracy": 10000,
+    "certificationAccuracy": 0,
+    "totalEvaluations": 2,
+    "totalCertifications": 6,
+    "lastUpdated": "2026-03-14T00:00:00.000Z"
+  },
+  "fees": {
+    "certification": "0.10",
+    "evaluation": "0.05",
+    "currency": "USDC"
+  },
+  "staking": {
+    "minConditional": "0.1",
+    "minTrusted": "1",
+    "minVerified": "10",
+    "leverage": 5,
+    "currency": "USDC"
+  },
+  "capabilities": [
+    "Agent Certification (ERC-8004 + ERC-8183 analysis)",
+    "Job Evaluation (ERC-8183 evaluator)",
+    "Staking & Insurance",
+    "TrustScore NFT minting",
+    "Job Success Prediction",
+    "Onchain accuracy tracking"
+  ],
+  "certificationLevels": {
+    "TRUSTED": {
+      "score": "80-100",
+      "description": "High completion rate, proven track record, meets all criteria"
+    },
+    "CONDITIONAL": {
+      "score": "60-79",
+      "description": "Moderate track record, some concerns, requires oversight"
+    },
+    "UNVERIFIED": {
+      "score": "40-59",
+      "description": "Insufficient data or mixed performance"
+    },
+    "FLAGGED": {
+      "score": "0-39",
+      "description": "High risk, poor performance, or malicious activity detected"
+    }
+  }
+}

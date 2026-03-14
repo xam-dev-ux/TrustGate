@@ -1,0 +1,38 @@
+{
+  "name": "TRUSTGATE",
+  "version": "1.0",
+  "basename": "trustgate.base.eth",
+  "address": "{AGENT_ADDRESS}",
+  "contract": "{CONTRACT_ADDRESS}",
+  "network": "base-mainnet",
+  "chainId": 8453,
+  "specialties": [
+    "agent-output",
+    "data-analysis",
+    "code-review",
+    "agent-certification"
+  ],
+  "fee": {
+    "amount": "0.05",
+    "currency": "USDC",
+    "protocol": "x402"
+  },
+  "accuracy": {
+    "evaluationAccuracy": null,
+    "certificationAccuracy": null,
+    "totalEvaluations": null,
+    "totalCertifications": null,
+    "source": "/api/accuracy",
+    "refreshed": null
+  },
+  "interfaces": {
+    "xmtp": true,
+    "rest": "https://trustgate.railway.app",
+    "skillFile": "https://trustgate.base.eth/.well-known/SKILL.md",
+    "hookContract": "{HOOK_CONTRACT_ADDRESS}",
+    "solidityInterface": "https://trustgate.base.eth/.well-known/ITrustGate.sol"
+  },
+  "erc8004": true,
+  "erc8128": true,
+  "siwa": true
+}

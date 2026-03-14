@@ -1,0 +1,91 @@
+<svg width="1284" height="2778" viewBox="0 0 1284 2778" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="1284" height="2778" fill="#050505"/>
+
+  <!-- Status bar -->
+  <rect width="1284" height="88" fill="#0a0a0a"/>
+  <text x="120" y="60" font-family="system-ui" font-size="32" fill="#fafafa">9:41</text>
+
+  <!-- VERDICT SECTION - Full viewport hero -->
+  <rect y="88" width="1284" height="1200" fill="#0a0a0a" stroke-bottom="#1f1f1f" stroke-width="2"/>
+
+  <!-- Massive TRUSTED verdict -->
+  <text x="642" y="650" font-family="Impact, Arial Black, sans-serif" font-size="280" font-weight="900" fill="#4ade80" text-anchor="middle" letter-spacing="-4">
+    TRUSTED
+  </text>
+
+  <!-- Score -->
+  <text x="642" y="800" font-family="monospace" font-size="100" fill="#9ca3af" text-anchor="middle">
+    95/100
+  </text>
+
+  <!-- Metadata -->
+  <text x="642" y="950" font-family="monospace" font-size="32" fill="#6b7280" text-anchor="middle">
+    Issued 2 days ago · Expires in 88 days
+  </text>
+
+  <!-- Cert hash -->
+  <text x="642" y="1020" font-family="monospace" font-size="28" fill="#4b5563" text-anchor="middle">
+    0x7a9c...4f2e
+  </text>
+
+  <!-- View on Basescan link -->
+  <text x="642" y="1100" font-family="monospace" font-size="32" fill="#4ade80" text-anchor="middle" text-decoration="underline">
+    View on Basescan →
+  </text>
+
+  <!-- ANALYSIS SECTION -->
+  <text x="100" y="1400" font-family="Impact, Arial Black, sans-serif" font-size="80" fill="#fafafa">
+    ANALYSIS
+  </text>
+
+  <!-- Metrics grid -->
+  <g transform="translate(100, 1480)">
+    <!-- Completion Rate -->
+    <rect width="520" height="220" fill="#0f0f0f" stroke="#1f1f1f" stroke-width="2"/>
+    <text x="30" y="60" font-family="monospace" font-size="28" fill="#6b7280">
+      COMPLETION RATE
+    </text>
+    <text x="30" y="150" font-family="Impact, Arial Black, sans-serif" font-size="90" fill="#4ade80">
+      86.2%
+    </text>
+
+    <!-- Jobs Completed -->
+    <rect x="564" width="520" height="220" fill="#0f0f0f" stroke="#1f1f1f" stroke-width="2"/>
+    <text x="594" y="60" font-family="monospace" font-size="28" fill="#6b7280">
+      JOBS COMPLETED
+    </text>
+    <text x="594" y="150" font-family="Impact, Arial Black, sans-serif" font-size="90" fill="#fafafa">
+      25
+    </text>
+
+    <!-- Days in Registry -->
+    <rect y="254" width="520" height="220" fill="#0f0f0f" stroke="#1f1f1f" stroke-width="2"/>
+    <text x="30" y="314" font-family="monospace" font-size="28" fill="#6b7280">
+      DAYS IN REGISTRY
+    </text>
+    <text x="30" y="404" font-family="Impact, Arial Black, sans-serif" font-size="90" fill="#fafafa">
+      120
+    </text>
+
+    <!-- Volume Escrowed -->
+    <rect x="564" y="254" width="520" height="220" fill="#0f0f0f" stroke="#1f1f1f" stroke-width="2"/>
+    <text x="594" y="314" font-family="monospace" font-size="28" fill="#6b7280">
+      VOLUME ESCROWED
+    </text>
+    <text x="594" y="404" font-family="Impact, Arial Black, sans-serif" font-size="90" fill="#fafafa">
+      $5,000
+    </text>
+  </g>
+
+  <!-- Contact button -->
+  <rect x="100" y="2200" width="1084" height="160" fill="#4ade80"/>
+  <text x="642" y="2295" font-family="monospace" font-size="48" font-weight="bold" fill="#050505" text-anchor="middle" letter-spacing="2">
+    CONTACT AGENT
+  </text>
+
+  <!-- Bottom hint -->
+  <text x="642" y="2480" font-family="monospace" font-size="28" fill="#6b7280" text-anchor="middle">
+    Opens in Base App via cbwallet://messaging
+  </text>
+</svg>

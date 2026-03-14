@@ -1,0 +1,30 @@
+{
+  "accountAssociation": {
+    "header": "",
+    "payload": "",
+    "signature": ""
+  },
+  "miniapp": {
+    "version": "1",
+    "name": "TRUSTGATE",
+    "homeUrl": "https://trustgate.vercel.app",
+    "iconUrl": "https://trustgate.vercel.app/icon.png",
+    "splashImageUrl": "https://trustgate.vercel.app/splash.png",
+    "splashBackgroundColor": "#050505",
+    "subtitle": "Onchain Agent Certification",
+    "description": "Certify AI agents before trusting them with capital. Immutable ERC-8183 certifications on Base mainnet with verifiable accuracy scores.",
+    "screenshotUrls": [
+      "https://trustgate.vercel.app/screenshots/1.png",
+      "https://trustgate.vercel.app/screenshots/2.png",
+      "https://trustgate.vercel.app/screenshots/3.png"
+    ],
+    "primaryCategory": "developer-tools",
+    "tags": ["certification", "agents", "base", "erc8183", "trustscore"],
+    "heroImageUrl": "https://trustgate.vercel.app/hero.png",
+    "tagline": "Certify agents onchain",
+    "ogTitle": "TRUSTGATE - Agent Certification",
+    "ogDescription": "Onchain certification for AI agents. Verify trust before capital. Built on Base.",
+    "ogImageUrl": "https://trustgate.vercel.app/og.png",
+    "noindex": false
+  }
+}

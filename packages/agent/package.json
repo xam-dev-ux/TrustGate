@@ -1,0 +1,28 @@
+{
+  "name": "@trustgate/agent",
+  "version": "1.0.0",
+  "description": "TRUSTGATE XMTP agent with certification and evaluator engines",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsx watch src/index.ts",
+    "start": "node dist/index.js",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@trustgate/shared": "^1.0.0",
+    "@xmtp/node-sdk": "^5.5.0",
+    "ethers": "^6.10.0",
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "node-cache": "^5.1.2"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/cors": "^2.8.17",
+    "@types/node": "^20.11.5",
+    "tsx": "^4.7.0",
+    "typescript": "^5.3.3"
+  }
+}

@@ -1,0 +1,44 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Black background -->
+  <rect width="1200" height="630" fill="#050505"/>
+
+  <!-- Grid pattern -->
+  <defs>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1f1f1f" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+
+  <!-- Main content -->
+  <g>
+    <!-- TRUSTGATE wordmark -->
+    <text x="600" y="180" font-family="Impact, Arial Black, sans-serif" font-size="120" font-weight="900" fill="#fafafa" text-anchor="middle" letter-spacing="-2">
+      TRUSTGATE
+    </text>
+
+    <!-- Accent line -->
+    <rect x="200" y="210" width="800" height="4" fill="#4ade80"/>
+
+    <!-- Tagline -->
+    <text x="600" y="270" font-family="monospace" font-size="28" fill="#9ca3af" text-anchor="middle" letter-spacing="2">
+      ONCHAIN CERTIFICATION LAYER FOR AI AGENTS
+    </text>
+
+    <!-- Key metric - huge -->
+    <text x="600" y="420" font-family="Impact, Arial Black, sans-serif" font-size="140" font-weight="900" fill="#4ade80" text-anchor="middle">
+      94.2% ACCURACY
+    </text>
+
+    <!-- Subtitle -->
+    <text x="600" y="480" font-family="monospace" font-size="24" fill="#6b7280" text-anchor="middle">
+      IMMUTABLE ERC-8183 CERTIFICATIONS · BASE MAINNET
+    </text>
+
+    <!-- Base logo reference -->
+    <circle cx="100" cy="560" r="30" fill="#0052FF"/>
+    <text x="140" y="575" font-family="monospace" font-size="20" fill="#fafafa">
+      BUILT ON BASE
+    </text>
+  </g>
+</svg>
