@@ -21,15 +21,14 @@ async function main() {
     process.exit(1);
   }
 
-  // Initialize engines and XMTP handler
+  // Initialize engines
   const certificationEngine = new CertificationEngine();
   const evaluatorEngine = new EvaluatorEngine();
   const outcomeTracker = new OutcomeTracker();
   const evaluatorUpdater = new EvaluatorUpdater();
   const stakingMonitor = new StakingMonitor();
-  const xmtpHandler = new XMTPHandler();
 
-  // Start all engines and XMTP handler in parallel
+  // Start all engines in parallel
   try {
     await Promise.all([
       certificationEngine.start(),
@@ -37,13 +36,22 @@ async function main() {
       outcomeTracker.start(),
       evaluatorUpdater.start(),
       stakingMonitor.start(),
-      xmtpHandler.start(),
     ]);
 
-    console.log("\n[Engines] All engines and XMTP handler started successfully\n");
+    console.log("\n[Engines] All engines started successfully\n");
   } catch (error: any) {
     console.error("[Engines] Failed to start engines:", error.message);
     process.exit(1);
+  }
+
+  // Start XMTP handler (optional, non-blocking)
+  const xmtpHandler = new XMTPHandler();
+  try {
+    await xmtpHandler.start();
+    console.log("[XMTP] XMTP handler started successfully\n");
+  } catch (error: any) {
+    console.warn("[XMTP] Failed to start XMTP handler (continuing without XMTP):", error);
+    console.warn("[XMTP] API and engines will work normally, but messaging is unavailable\n");
   }
 
   // Start REST API server

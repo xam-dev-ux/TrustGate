@@ -34,6 +34,8 @@ export class XMTPHandler {
       };
 
       // Initialize XMTP client with EOA signer
+      console.log(`[XMTP] Creating client for environment: ${config.xmtp.env}`);
+
       this.client = await Client.create(signer, {
         env: config.xmtp.env,
       });
@@ -44,7 +46,12 @@ export class XMTPHandler {
       this.isRunning = true;
       await this.streamMessages();
     } catch (error: any) {
-      console.error("[XMTP] Failed to start:", error.message);
+      console.error("[XMTP] Failed to start:");
+      console.error("[XMTP] Error message:", error.message);
+      console.error("[XMTP] Error stack:", error.stack);
+      if (error.cause) {
+        console.error("[XMTP] Error cause:", error.cause);
+      }
       throw error;
     }
   }
