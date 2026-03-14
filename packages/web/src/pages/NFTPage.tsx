@@ -80,7 +80,8 @@ export default function NFTPage() {
     },
   };
 
-  const data = nftData || mockData;
+  // Use mockData if nftData is missing required fields
+  const data = (nftData?.colors && nftData?.tier) ? nftData : mockData;
 
   return (
     <div className="min-h-screen bg-void pb-20">
