@@ -9,49 +9,101 @@ export class XMTPHandler {
   private isRunning = false;
 
   async start() {
+    console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
     console.log("[XMTP] Starting XMTP handler...");
+    console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
 
     try {
-      // Create wallet from private key
-      this.wallet = new Wallet(config.xmtp.walletKey);
-      console.log(`[XMTP] Agent address: ${this.wallet.address}`);
+      // Step 1: Create wallet
+      console.log("[XMTP] Step 1/5: Creating wallet from private key...");
+      console.log(`[XMTP] - Wallet key length: ${config.xmtp.walletKey.length} chars`);
+      console.log(`[XMTP] - Wallet key prefix: ${config.xmtp.walletKey.substring(0, 6)}...`);
 
-      // Create XMTP EOA signer from ethers wallet
+      this.wallet = new Wallet(config.xmtp.walletKey);
+      console.log(`[XMTP] ✓ Wallet created successfully`);
+      console.log(`[XMTP] - Agent address: ${this.wallet.address}`);
+      console.log(`[XMTP] - Address checksum: ${this.wallet.address.toLowerCase()}`);
+
+      // Step 2: Create EOA signer
+      console.log("\n[XMTP] Step 2/5: Creating EOA signer...");
       const signer = {
         type: "EOA" as const,
         signMessage: async (message: string): Promise<Uint8Array> => {
+          console.log(`[XMTP] - Signing message: "${message.substring(0, 50)}..."`);
           if (!this.wallet) throw new Error("Wallet not initialized");
           const signature = await this.wallet.signMessage(message);
+          console.log(`[XMTP] - Signature created: ${signature.substring(0, 20)}...`);
           return getBytes(signature);
         },
         getIdentifier: () => {
           if (!this.wallet) throw new Error("Wallet not initialized");
-          return {
+          const identifier = {
             identifier: this.wallet.address.toLowerCase(),
             identifierKind: 0, // 0 = Ethereum
           };
+          console.log(`[XMTP] - getIdentifier called, returning:`, identifier);
+          return identifier;
         },
       };
+      console.log("[XMTP] ✓ EOA signer created");
 
-      // Initialize XMTP client with EOA signer
-      console.log(`[XMTP] Creating client for environment: ${config.xmtp.env}`);
+      // Step 3: Log XMTP configuration
+      console.log("\n[XMTP] Step 3/5: XMTP Configuration:");
+      console.log(`[XMTP] - Environment: ${config.xmtp.env}`);
+      console.log(`[XMTP] - DB encryption key set: ${!!config.xmtp.dbEncryptionKey}`);
+      console.log(`[XMTP] - DB encryption key length: ${config.xmtp.dbEncryptionKey.length} chars`);
+
+      // Step 4: Create XMTP client
+      console.log("\n[XMTP] Step 4/5: Creating XMTP client...");
+      console.log(`[XMTP] - Calling Client.create() with env=${config.xmtp.env}...`);
+      console.log(`[XMTP] - This may take 10-30 seconds on first run...`);
+
+      const createStartTime = Date.now();
 
       this.client = await Client.create(signer, {
         env: config.xmtp.env,
       });
 
-      console.log("[XMTP] Client created successfully");
+      const createDuration = Date.now() - createStartTime;
+      console.log(`[XMTP] ✓ Client created successfully in ${createDuration}ms`);
+      console.log(`[XMTP] - Client inbox ID: ${this.client.inboxId}`);
+      console.log(`[XMTP] - Client is registered: ${this.client.isRegistered}`);
 
-      // Start streaming conversations
+      // Step 5: Start streaming
+      console.log("\n[XMTP] Step 5/5: Starting message stream...");
       this.isRunning = true;
+
+      console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+      console.log("[XMTP] ✓✓✓ XMTP HANDLER READY ✓✓✓");
+      console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n");
+
       await this.streamMessages();
     } catch (error: any) {
-      console.error("[XMTP] Failed to start:");
+      console.error("\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+      console.error("[XMTP] ✗✗✗ FAILED TO START XMTP ✗✗✗");
+      console.error("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+      console.error("[XMTP] Error type:", error.constructor.name);
       console.error("[XMTP] Error message:", error.message);
+      console.error("[XMTP] Error code:", error.code);
       console.error("[XMTP] Error stack:", error.stack);
+
       if (error.cause) {
-        console.error("[XMTP] Error cause:", error.cause);
+        console.error("\n[XMTP] Error cause:");
+        console.error("[XMTP] - Cause type:", error.cause.constructor?.name);
+        console.error("[XMTP] - Cause message:", error.cause.message);
+        console.error("[XMTP] - Cause stack:", error.cause.stack);
       }
+
+      if (error.errors) {
+        console.error("\n[XMTP] Multiple errors:", error.errors);
+      }
+
+      // Log full error object
+      console.error("\n[XMTP] Full error object:");
+      console.error(JSON.stringify(error, Object.getOwnPropertyNames(error), 2));
+
+      console.error("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n");
+
       throw error;
     }
   }
@@ -66,41 +118,57 @@ export class XMTPHandler {
       throw new Error("XMTP client not initialized");
     }
 
-    console.log("[XMTP] Streaming messages...");
+    console.log("[XMTP] Setting up message streaming...");
 
     try {
+      console.log("[XMTP] - Fetching existing conversations...");
       const conversations = await this.client.conversations.list();
-      console.log(`[XMTP] Found ${conversations.length} existing conversations`);
+      console.log(`[XMTP] - Found ${conversations.length} existing conversations`);
 
       // Stream all conversations
+      console.log("[XMTP] - Creating message stream...");
       const stream = await this.client.conversations.streamAllMessages();
+      console.log("[XMTP] - Stream created successfully");
+      console.log("[XMTP] - Listening for incoming messages...");
 
+      let messageCount = 0;
       for await (const message of stream) {
-        if (!this.isRunning) break;
+        if (!this.isRunning) {
+          console.log("[XMTP] - Stream stopped (isRunning = false)");
+          break;
+        }
 
         try {
+          messageCount++;
           // Get sender from message
           const senderInboxId = message.senderInboxId;
 
           // Skip messages from self (compare inbox IDs)
           if (senderInboxId === this.client.inboxId) {
+            console.log(`[XMTP] - Skipping own message #${messageCount}`);
             continue;
           }
 
-          console.log(`[XMTP] Message from ${senderInboxId}: ${message.content}`);
+          console.log(`[XMTP] - Message #${messageCount} from ${senderInboxId}: ${message.content}`);
 
           // Handle the message
           await this.handleMessage(message, senderInboxId);
         } catch (error: any) {
           console.error("[XMTP] Error handling message:", error.message);
+          console.error("[XMTP] Error stack:", error.stack);
         }
       }
+
+      console.log("[XMTP] - Stream ended normally");
     } catch (error: any) {
-      console.error("[XMTP] Error streaming messages:", error.message);
+      console.error("\n[XMTP] ✗ Error in message streaming:");
+      console.error("[XMTP] - Error type:", error.constructor.name);
+      console.error("[XMTP] - Error message:", error.message);
+      console.error("[XMTP] - Error stack:", error.stack);
 
       // Retry after 5 seconds
       if (this.isRunning) {
-        console.log("[XMTP] Retrying in 5 seconds...");
+        console.log("[XMTP] - Retrying stream in 5 seconds...");
         setTimeout(() => this.streamMessages(), 5000);
       }
     }
