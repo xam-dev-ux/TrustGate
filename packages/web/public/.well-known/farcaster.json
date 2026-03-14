@@ -1,8 +1,8 @@
 {
   "accountAssociation": {
-    "header": "",
-    "payload": "",
-    "signature": ""
+    "header": "eyJmaWQiOjU4MDczOCwidHlwZSI6ImN1c3RvZHkiLCJrZXkiOiIweDEwOUM5ZTgwMTNFY2U4ODZENGY4QUUyNjkyNTRkZTkzMEFFZmNkNDQifQ",
+    "payload": "eyJkb21haW4iOiJ0cnVzdC1nYXRlLXdlYi52ZXJjZWwuYXBwIn0",
+    "signature": "3DHBSx4DSG2qTiRSkY6IGkcxtQu/gcdME1F8UfZAai8nh7Belw+WpUFj+x3LAZFR0c/WCkGC1g4HZuWiVEKvxRs="
   },
   "miniapp": {
     "version": "1",
@@ -22,8 +22,8 @@
     "tags": ["certification", "agents", "base", "erc8183", "trustscore"],
     "heroImageUrl": "https://trustgate.vercel.app/hero.png",
     "tagline": "Certify agents onchain",
-    "ogTitle": "TRUSTGATE - Agent Certification",
-    "ogDescription": "Onchain certification for AI agents. Verify trust before capital. Built on Base.",
+    "ogTitle": "TRUSTGATE - Agent Certify",
+    "ogDescription": "Onchain certification for AI agents.",
     "ogImageUrl": "https://trustgate.vercel.app/og.png",
     "noindex": false
   }
