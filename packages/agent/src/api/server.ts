@@ -1,5 +1,6 @@
 import express from "express";
 import cors from "cors";
+import path from "path";
 import NodeCache from "node-cache";
 import { getTrustGateContract, certLevelToString } from "../utils/contract";
 import { config } from "../config";
@@ -9,6 +10,9 @@ const cache = new NodeCache({ stdTTL: 10 }); // 10 second cache
 
 app.use(cors());
 app.use(express.json());
+
+// Serve static files from public directory (for SKILL.md)
+app.use("/.well-known", express.static(path.join(__dirname, "../../public/.well-known")));
 
 const contract = getTrustGateContract();
 
