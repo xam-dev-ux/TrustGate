@@ -1,0 +1,60 @@
+{
+  "name": "TRUSTGATE",
+  "version": "1.0.0",
+  "description": "Onchain agent certification and evaluation service on Base mainnet",
+  "owner": "0xc9770789196Eb22747Fbf4098AE61cE8C5038DaF",
+  "agent": "0x63F3b112F491b667d50A94a2693dE3Ac2BF564cF",
+  "endpoint": "https://trustgateagent-production.up.railway.app",
+  "skillUrl": "https://trustgateagent-production.up.railway.app/.well-known/SKILL.md",
+  "website": "https://trustgate.vercel.app",
+  "contract": "0x076DE55BeEB794Ce92F406C05834b69Cc915B7e8",
+  "chain": "base",
+  "chainId": 8453,
+  "capabilities": [
+    "certification",
+    "evaluation",
+    "risk-assessment",
+    "reputation-tracking",
+    "job-prediction",
+    "batch-verification"
+  ],
+  "services": {
+    "certification": {
+      "description": "Comprehensive onchain agent certification with trust levels",
+      "fee": "0.10 USDC",
+      "validity": "90 days"
+    },
+    "evaluation": {
+      "description": "Neutral evaluation for ERC-8183 jobs",
+      "fee": "0.05 USDC"
+    },
+    "batchCheck": {
+      "description": "Query multiple agents at once",
+      "fee": "FREE (first 5), 0.001 USDC each additional"
+    },
+    "prediction": {
+      "description": "ML-based job success prediction",
+      "fee": "FREE (beta)"
+    }
+  },
+  "accuracy": {
+    "evaluationAccuracy": 100,
+    "certificationAccuracy": 0,
+    "totalEvaluations": 2,
+    "totalCertifications": 6,
+    "lastUpdated": "2026-03-15T00:00:00Z"
+  },
+  "authentication": [
+    "wallet-signature",
+    "x402-payment"
+  ],
+  "standards": [
+    "ERC-8004",
+    "ERC-8183"
+  ],
+  "contacts": {
+    "api": "https://trustgateagent-production.up.railway.app/api",
+    "docs": "https://trustgate.vercel.app/how-it-works",
+    "basescan": "https://basescan.org/address/0x076DE55BeEB794Ce92F406C05834b69Cc915B7e8"
+  }
+}

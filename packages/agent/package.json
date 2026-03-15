@@ -4,7 +4,7 @@
   "description": "TRUSTGATE XMTP agent with certification and evaluator engines",
   "main": "dist/index.js",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc && cp -r public dist/",
     "dev": "tsx watch src/index.ts",
     "start": "node dist/index.js",
     "clean": "rm -rf dist"

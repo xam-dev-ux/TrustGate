@@ -11,8 +11,9 @@ const cache = new NodeCache({ stdTTL: 10 }); // 10 second cache
 app.use(cors());
 app.use(express.json());
 
-// Serve static files from public directory (for SKILL.md)
-app.use("/.well-known", express.static(path.join(__dirname, "../../public/.well-known")));
+// Serve static files from public directory (for SKILL.md and agent-registration.json)
+// In production (dist/api/server.js), this points to dist/public/.well-known
+app.use("/.well-known", express.static(path.join(__dirname, "../public/.well-known")));
 
 const contract = getTrustGateContract();
 
