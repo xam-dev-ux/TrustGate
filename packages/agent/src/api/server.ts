@@ -15,7 +15,7 @@ const contract = getTrustGateContract();
 // GET /api/certifications/:address - latest active cert
 app.get("/api/certifications/:address", async (req, res) => {
   try {
-    const { address } = req.params;
+    const address = req.params.address.toLowerCase();
     const cacheKey = `cert-${address}`;
 
     // Check cache
@@ -49,7 +49,7 @@ app.get("/api/certifications/:address", async (req, res) => {
 // GET /api/certifications/:address/history - all certs timeline
 app.get("/api/certifications/:address/history", async (req, res) => {
   try {
-    const { address } = req.params;
+    const address = req.params.address.toLowerCase();
     const history = await contract.getCertificationHistory(address);
 
     const result = history.map((cert: any) => ({
@@ -131,7 +131,7 @@ app.get("/api/stats", async (req, res) => {
 // GET /api/certifications/:address/report - full analysis
 app.get("/api/certifications/:address/report", async (req, res) => {
   try {
-    const { address } = req.params;
+    const address = req.params.address.toLowerCase();
 
     // Get latest certification
     const cert = await contract.getLatestCertification(address);
@@ -185,7 +185,7 @@ app.get("/api/batch-certifications", async (req, res) => {
       });
     }
 
-    const addresses = addressesParam.split(",").map((a) => a.trim());
+    const addresses = addressesParam.split(",").map((a) => a.trim().toLowerCase());
 
     if (addresses.length === 0) {
       return res.status(400).json({ error: "No addresses provided" });
@@ -300,7 +300,7 @@ app.get("/api/fees", async (req, res) => {
 // GET /api/staking/:address - agent staking info
 app.get("/api/staking/:address", async (req, res) => {
   try {
-    const { address } = req.params;
+    const address = req.params.address.toLowerCase();
 
     if (!process.env.STAKING_POOL_ADDRESS) {
       return res.status(503).json({ error: "Staking pool not configured" });
@@ -358,7 +358,7 @@ app.post("/api/predict", async (req, res) => {
 // GET /api/nft/:address - get TrustScore NFT metadata
 app.get("/api/nft/:address", async (req, res) => {
   try {
-    const { address } = req.params;
+    const address = req.params.address.toLowerCase();
 
     // TODO: Fetch NFT token ID from address
     // TODO: Get tokenURI from contract
