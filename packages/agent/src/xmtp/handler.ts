@@ -66,14 +66,14 @@ export class XMTPHandler {
 
       // Step 5: Create XMTP client
       console.log("\n[XMTP] Step 5/6: Creating XMTP client...");
-      const dbPath = `/tmp/xmtp-${this.wallet.address.toLowerCase()}.db3`;
 
-      // Convert encryption key to Uint8Array (32 bytes)
-      const encryptionKeyBytes = getBytes(keccak256(toUtf8Bytes(config.xmtp.dbEncryptionKey)));
+      // Convert encryption key (simple Buffer like AgenBoard)
+      const dbEncKey = config.xmtp.dbEncryptionKey.startsWith('0x')
+        ? Buffer.from(config.xmtp.dbEncryptionKey.slice(2), 'hex')
+        : Buffer.from(config.xmtp.dbEncryptionKey, 'hex');
 
       console.log(`[XMTP] - Environment: ${config.xmtp.env}`);
-      console.log(`[XMTP] - DB path: ${dbPath}`);
-      console.log(`[XMTP] - Encryption key: converted to ${encryptionKeyBytes.length} bytes`);
+      console.log(`[XMTP] - Encryption key: ${dbEncKey.length} bytes`);
       console.log(`[XMTP] - Calling Client.create()...`);
       console.log(`[XMTP] - This may take 10-30 seconds on first run...`);
 
@@ -81,8 +81,7 @@ export class XMTPHandler {
 
       this.client = await Client.create(signer, {
         env: config.xmtp.env,
-        dbPath: dbPath,
-        dbEncryptionKey: encryptionKeyBytes,
+        dbEncryptionKey: dbEncKey,
       });
 
       const createDuration = Date.now() - createStartTime;
