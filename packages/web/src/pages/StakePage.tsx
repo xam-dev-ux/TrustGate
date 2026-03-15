@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { useWalletStore } from "../stores/walletStore";
 
 /**
  * StakePage - Mobile-first staking interface
@@ -13,6 +14,7 @@ import { motion } from "framer-motion";
  * - Haptic feedback (via vibration API)
  */
 export default function StakePage() {
+  const { address, isConnecting, error, connect } = useWalletStore();
   const [stake, setStake] = useState(0);
   const [stakeInput, setStakeInput] = useState("");
   const [maxJobValue, setMaxJobValue] = useState(0);
@@ -28,14 +30,15 @@ export default function StakePage() {
     }
   };
 
-  // Fetch agent stake on mount
+  // Fetch agent stake when wallet connects
   useEffect(() => {
-    fetchStakeInfo();
-  }, []);
+    if (address) {
+      fetchStakeInfo();
+    }
+  }, [address]);
 
   const fetchStakeInfo = async () => {
-    // TODO: Get connected wallet address
-    const address = "0x...";
+    if (!address) return;
 
     try {
       const res = await fetch(`${import.meta.env.VITE_API_URL}/api/staking/${address}`);
@@ -85,8 +88,40 @@ export default function StakePage() {
       {/* Header with glassmorphism */}
       <div className="sticky top-0 z-10 backdrop-blur-xl bg-void/80 border-b border-border">
         <div className="px-4 py-6">
-          <h1 className="text-2xl font-display font-bold text-paper">STAKE</h1>
-          <p className="text-sm text-muted mt-1">Lock collateral, unlock jobs</p>
+          <div className="flex items-center justify-between mb-2">
+            <h1 className="text-2xl font-display font-bold text-paper">STAKE</h1>
+
+            {/* Wallet Connect Button */}
+            {!address ? (
+              <motion.button
+                whileTap={{ scale: 0.95 }}
+                onClick={() => {
+                  haptic("light");
+                  connect();
+                }}
+                disabled={isConnecting}
+                className="px-4 py-2 rounded-full bg-gradient-to-r from-trusted to-trustedFg font-mono font-bold text-void text-sm"
+              >
+                {isConnecting ? "..." : "CONNECT"}
+              </motion.button>
+            ) : (
+              <div className="px-3 py-2 rounded-full bg-surface border border-trustedFg/30 font-mono text-xs text-trustedFg">
+                {address.slice(0, 6)}...{address.slice(-4)}
+              </div>
+            )}
+          </div>
+          <p className="text-sm text-muted">Lock collateral, unlock jobs</p>
+
+          {/* Error message */}
+          {error && (
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="mt-3 p-3 rounded-xl bg-flagged/10 border border-flaggedFg/20"
+            >
+              <p className="text-xs font-mono text-flaggedFg">{error}</p>
+            </motion.div>
+          )}
         </div>
       </div>
 
@@ -156,14 +191,18 @@ export default function StakePage() {
               whileTap={{ scale: 0.98 }}
               onClick={() => {
                 haptic("light");
-                setShowStakeModal(true);
+                if (!address) {
+                  connect();
+                } else {
+                  setShowStakeModal(true);
+                }
               }}
               className="w-full mt-6 py-4 rounded-full font-mono font-bold text-void text-lg"
               style={{
                 background: `linear-gradient(90deg, ${tierInfo.color}, ${tierInfo.glow})`,
               }}
             >
-              INCREASE STAKE
+              {!address ? "CONNECT WALLET" : "INCREASE STAKE"}
             </motion.button>
           </div>
         </motion.div>
@@ -245,7 +284,7 @@ export default function StakePage() {
             animate={{ y: 0 }}
             exit={{ y: "100%" }}
             transition={{ type: "spring", damping: 30 }}
-            className="w-full bg-surface rounded-t-[2rem] p-6 pb-10"
+            className="w-full bg-surface rounded-t-[2rem] p-6 pb-28"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="w-12 h-1 bg-border rounded-full mx-auto mb-6" />
