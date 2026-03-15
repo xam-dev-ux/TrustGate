@@ -1,5 +1,6 @@
 import { Client } from "@xmtp/node-sdk";
-import { Wallet, getBytes, hexlify } from "ethers";
+import { Wallet, getBytes, hexlify, toUtf8Bytes, keccak256 } from "ethers";
+import { existsSync, mkdirSync, accessSync, constants } from "fs";
 import { config } from "../config";
 import { getTrustGateContract } from "../utils/contract";
 
@@ -53,15 +54,35 @@ export class XMTPHandler {
       console.log(`[XMTP] - DB encryption key set: ${!!config.xmtp.dbEncryptionKey}`);
       console.log(`[XMTP] - DB encryption key length: ${config.xmtp.dbEncryptionKey.length} chars`);
 
-      // Step 4: Create XMTP client
-      console.log("\n[XMTP] Step 4/5: Creating XMTP client...");
-      console.log(`[XMTP] - Calling Client.create() with env=${config.xmtp.env}...`);
+      // Step 4: Verify /tmp directory
+      console.log("\n[XMTP] Step 4/6: Verifying /tmp directory...");
+      try {
+        accessSync("/tmp", constants.W_OK);
+        console.log("[XMTP] ✓ /tmp directory is writable");
+      } catch (error: any) {
+        console.error("[XMTP] ✗ /tmp directory is not writable:", error.message);
+        throw new Error("Cannot write to /tmp directory");
+      }
+
+      // Step 5: Create XMTP client
+      console.log("\n[XMTP] Step 5/6: Creating XMTP client...");
+      const dbPath = `/tmp/xmtp-${this.wallet.address.toLowerCase()}.db3`;
+
+      // Convert encryption key to Uint8Array (32 bytes)
+      const encryptionKeyBytes = getBytes(keccak256(toUtf8Bytes(config.xmtp.dbEncryptionKey)));
+
+      console.log(`[XMTP] - Environment: ${config.xmtp.env}`);
+      console.log(`[XMTP] - DB path: ${dbPath}`);
+      console.log(`[XMTP] - Encryption key: converted to ${encryptionKeyBytes.length} bytes`);
+      console.log(`[XMTP] - Calling Client.create()...`);
       console.log(`[XMTP] - This may take 10-30 seconds on first run...`);
 
       const createStartTime = Date.now();
 
       this.client = await Client.create(signer, {
         env: config.xmtp.env,
+        dbPath: dbPath,
+        dbEncryptionKey: encryptionKeyBytes,
       });
 
       const createDuration = Date.now() - createStartTime;
@@ -69,8 +90,8 @@ export class XMTPHandler {
       console.log(`[XMTP] - Client inbox ID: ${this.client.inboxId}`);
       console.log(`[XMTP] - Client is registered: ${this.client.isRegistered}`);
 
-      // Step 5: Start streaming
-      console.log("\n[XMTP] Step 5/5: Starting message stream...");
+      // Step 6: Start streaming
+      console.log("\n[XMTP] Step 6/6: Starting message stream...");
       this.isRunning = true;
 
       console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
