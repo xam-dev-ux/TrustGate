@@ -1,6 +1,23 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { ethers } from "ethers";
 import { useWalletStore } from "../stores/walletStore";
+
+// Contract addresses on Base mainnet
+const STAKING_POOL_ADDRESS = "0xE275e2cFe9794252a4858d1859a065D1D9768b74";
+const USDC_ADDRESS = "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913";
+
+// Minimal ABIs
+const USDC_ABI = [
+  "function approve(address spender, uint256 amount) returns (bool)",
+  "function allowance(address owner, address spender) view returns (uint256)",
+];
+
+const STAKING_POOL_ABI = [
+  "function stake(uint256 amount)",
+  "function agentStake(address agent) view returns (uint256)",
+  "event Staked(address indexed agent, uint256 amount, uint256 newTotal)",
+];
 
 /**
  * StakePage - Mobile-first staking interface
@@ -20,6 +37,7 @@ export default function StakePage() {
   const [maxJobValue, setMaxJobValue] = useState(0);
   const [successRate, setSuccessRate] = useState(0);
   const [isStaking, setIsStaking] = useState(false);
+  const [stakingStep, setStakingStep] = useState<"" | "approving" | "staking">("");
   const [showStakeModal, setShowStakeModal] = useState(false);
 
   // Haptic feedback
@@ -41,36 +59,93 @@ export default function StakePage() {
     if (!address) return;
 
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/staking/${address}`);
-      if (res.ok) {
-        const data = await res.json();
-        setStake(parseFloat(data.stakeFormatted));
-        setMaxJobValue(parseFloat(data.maxJobValueFormatted));
-        setSuccessRate(data.successRate);
-      }
+      // Read directly from staking contract
+      const provider = new ethers.BrowserProvider(window.ethereum);
+      const stakingContract = new ethers.Contract(
+        STAKING_POOL_ADDRESS,
+        STAKING_POOL_ABI,
+        provider
+      );
+
+      // Get agent's stake
+      const stakeAmount = await stakingContract.agentStake(address);
+      const stakeFormatted = parseFloat(ethers.formatUnits(stakeAmount, 6));
+
+      setStake(stakeFormatted);
+
+      // Calculate max job value (5x leverage)
+      setMaxJobValue(stakeFormatted * 5);
+
+      // Mock success rate for now (would come from job history)
+      setSuccessRate(stakeFormatted >= 500 ? 95 : 0);
     } catch (error) {
       console.error("Failed to fetch stake:", error);
     }
   };
 
   const handleStake = async () => {
-    if (!stakeInput || parseFloat(stakeInput) <= 0) return;
+    if (!stakeInput || parseFloat(stakeInput) <= 0 || !address) return;
 
     haptic("medium");
     setIsStaking(true);
+    setStakingStep("");
 
     try {
-      // TODO: Call staking pool contract
-      await new Promise(resolve => setTimeout(resolve, 2000)); // Mock
+      // Get provider and signer
+      const provider = new ethers.BrowserProvider(window.ethereum);
+      const signer = await provider.getSigner();
 
+      // Convert amount to USDC decimals (6 decimals)
+      const amount = ethers.parseUnits(stakeInput, 6);
+
+      // Create contract instances
+      const usdcContract = new ethers.Contract(USDC_ADDRESS, USDC_ABI, signer);
+      const stakingContract = new ethers.Contract(STAKING_POOL_ADDRESS, STAKING_POOL_ABI, signer);
+
+      // Check current allowance
+      const currentAllowance = await usdcContract.allowance(address, STAKING_POOL_ADDRESS);
+
+      // Approve USDC if needed
+      if (currentAllowance < amount) {
+        setStakingStep("approving");
+        console.log("Approving USDC...");
+        const approveTx = await usdcContract.approve(STAKING_POOL_ADDRESS, amount);
+        await approveTx.wait();
+        console.log("USDC approved");
+      }
+
+      // Stake
+      setStakingStep("staking");
+      console.log("Staking...");
+      const stakeTx = await stakingContract.stake(amount);
+      await stakeTx.wait();
+      console.log("Staked successfully");
+
+      // Update UI
       setStake(stake + parseFloat(stakeInput));
       setStakeInput("");
       setShowStakeModal(false);
       haptic("heavy");
-    } catch (error) {
+
+      // Refresh stake info from contract
+      await fetchStakeInfo();
+    } catch (error: any) {
       console.error("Stake failed:", error);
+
+      // Better error messages
+      let errorMsg = "Transacción rechazada";
+      if (error.code === "ACTION_REJECTED") {
+        errorMsg = "Transacción cancelada por el usuario";
+      } else if (error.message?.includes("insufficient funds")) {
+        errorMsg = "Saldo insuficiente de USDC o ETH para gas";
+      } else if (error.message) {
+        errorMsg = error.message;
+      }
+
+      alert(`Error: ${errorMsg}`);
     } finally {
       setIsStaking(false);
+      setStakingStep("");
     }
   };
 
@@ -334,7 +409,10 @@ export default function StakePage() {
                 disabled={isStaking || !stakeInput}
                 className="w-full py-4 rounded-full font-mono font-bold text-void text-lg bg-gradient-to-r from-trusted to-trustedFg disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {isStaking ? "STAKING..." : "STAKE NOW"}
+                {stakingStep === "approving" && "APROBANDO USDC..."}
+                {stakingStep === "staking" && "HACIENDO STAKE..."}
+                {!isStaking && "STAKE NOW"}
+                {isStaking && !stakingStep && "PREPARANDO..."}
               </motion.button>
             </div>
           </motion.div>
